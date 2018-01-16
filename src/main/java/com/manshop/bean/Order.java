@@ -22,7 +22,7 @@ public class Order {
     private User buser;
     @ColDefine(width = 1)
     private Integer delivery;
-    @ColDefine(type = ColType.VARCHAR, width = 20)
+    @ColDefine(type = ColType.VARCHAR, width = 25)
     private String trackingnum;
     @ColDefine(type = ColType.INT, width = 1)
     private Integer state;
