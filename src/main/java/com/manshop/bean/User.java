@@ -1,9 +1,6 @@
 package com.manshop.bean;
 
-import org.nutz.dao.entity.annotation.ColDefine;
-import org.nutz.dao.entity.annotation.ColType;
-import org.nutz.dao.entity.annotation.Id;
-import org.nutz.dao.entity.annotation.Table;
+import org.nutz.dao.entity.annotation.*;
 
 @Table("t_user")
 public class User {
@@ -15,7 +12,7 @@ public class User {
     private String username;
     @ColDefine(type = ColType.VARCHAR, width = 16)
     private String password;
-    @ColDefine(type = ColType.VARCHAR, width = 100)
+    @ColDefine(type = ColType.VARCHAR, width = 200)
     private String head;
 
     public Integer getId() {

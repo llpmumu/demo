@@ -2,6 +2,7 @@ package com.manshop.module;
 
 import com.manshop.bean.User;
 import com.manshop.model.ResponseModel;
+import org.nutz.dao.Chain;
 import org.nutz.dao.Cnd;
 import org.nutz.dao.Dao;
 import org.nutz.ioc.loader.annotation.Inject;
@@ -29,23 +30,27 @@ public class UserModule {
 
     @At("/login")
     @POST
-    public ResponseModel login(String phone, String password) {
-        if(Strings.isBlank(phone) || Strings.isBlank(password)){
-            return ResponseModel.getCommonFailedResponseModel("用户名或密码不能为空");
+    public ResponseModel login(User user) {
+        if(Strings.isBlank(user.getPhone()) || Strings.isBlank(user.getPassword())){
+            return ResponseModel.getCommonFailedResponseModel("手机号或密码不能为空");
         }
-        List<User> user = dao.query(User.class, Cnd.where("phone", "=", phone).and("password","=",password));
-        if(user.isEmpty())
+        List<User> result = dao.query(User.class, Cnd.where("phone", "=", user.getPhone()).and("password","=",user.getPassword()));
+        System.out.println(user.getId());
+        if(result.isEmpty())
             return ResponseModel.getCommonFailedResponseModel("用户不存在");
         return ResponseModel.getCommonSuccessResponseModel("登录成功");
     }
 
     @At("/register")
     @POST
-    public void register(String phone, String password) {
-        User user = new User();
-        user.setPhone(phone);
-        user.setPassword(password);
+    public ResponseModel register(User user) {
+        if(Strings.isBlank(user.getPhone()) || Strings.isBlank(user.getPassword())){
+            return ResponseModel.getCommonFailedResponseModel("手机号或密码不能为空");
+        }
+        user.setUsername(user.getPhone());
+        user.setHead("https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=256814278,2196155154&fm=27&gp=0.jpg");
         dao.insert(user);
         System.out.println(user.getId());
+        return ResponseModel.getCommonSuccessResponseModel("注册成功");
     }
 }
