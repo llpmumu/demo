@@ -40,11 +40,13 @@ public class MainLauncher {
     private Dao dao;
 	public void init() {
         Daos.createTablesInPackage(dao,"com.manshop.bean",false);
+        Daos.migration(dao, "com.manshop.bean", true, true, false);
     }
 	public void depose() {}
 
     public static void main(String[] args) throws Exception {
         new NbApp(MainLauncher.class).run();
+
     }
 
 }
