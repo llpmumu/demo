@@ -26,7 +26,8 @@ public class AddressModule {
     @At("/getAddress")
     @POST
     public ResponseModel getAddress(Address address) {
-        List<Address> result = dao.query(Address.class, Cnd.where("uid", "=", address.getUser().getId()));
+        List<Address> result = dao.query(Address.class, Cnd.where("uid", "=", address.getUid()));
+        System.out.println(result.size());
         if(result.isEmpty())
             return ResponseModel.getCommonFailedResponseModel("无收件地址");
         return ResponseModel.getCommonSuccessResponseModel(result);

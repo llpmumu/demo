@@ -19,6 +19,18 @@ public class Address {
     @ColDefine(type = ColType.BOOLEAN)
     private Boolean isDefault;
 
+    public Address(){
+    }
+
+    public Address(Integer id, Integer uid, String consignee, String addphone, String address, Boolean isDefault) {
+        this.id = id;
+        this.uid = uid;
+        this.consignee = consignee;
+        this.addphone = addphone;
+        this.address = address;
+        this.isDefault = isDefault;
+    }
+
     public Integer getId() {
         return id;
     }

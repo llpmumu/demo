@@ -40,7 +40,7 @@ public class MainLauncher {
     private Dao dao;
 	public void init() {
         Daos.createTablesInPackage(dao,"com.manshop.bean",false);
-        Daos.migration(dao, "com.manshop.bean", true, true, false);
+        Daos.migration(dao, "com.manshop.bean", true, false, false);
     }
 	public void depose() {}
 
