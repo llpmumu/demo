@@ -1,6 +1,7 @@
 package com.manshop.module;
 
 import com.manshop.bean.Goods;
+import com.manshop.bean.User;
 import com.manshop.model.ResponseModel;
 import org.nutz.dao.Cnd;
 import org.nutz.dao.Dao;
@@ -19,19 +20,33 @@ public class GoodsModule {
     @Inject
     private Dao dao;
 
+    @At("/getMyGood")
+    @POST
+    public ResponseModel getMyGood(Goods goods) {
+        List<Goods> result = dao.query(Goods.class, Cnd.where("uid", "=", goods.getUid()));
+        if (result.isEmpty())
+            return ResponseModel.getCommonFailedResponseModel("无发布的商品");
+        return ResponseModel.getCommonSuccessResponseModel(result);
+    }
+
     @At("/getGood")
     @POST
-    public ResponseModel getAddress(Goods goods) {
-        List<Goods> result = dao.query(Goods.class, Cnd.where("uid", "=", goods.getUid()));
-        if(result.isEmpty())
-            return ResponseModel.getCommonFailedResponseModel("无收件地址");
+    public ResponseModel getGood(Goods goods) {
+        List<Goods> result = dao.query(Goods.class, Cnd.where("uid", "!=", goods.getUid()));
+        System.out.println(result.size());
+        for (int i = 0; i < result.size(); i++) {
+            User user = dao.fetch(User.class, result.get(i).getUid());
+            result.get(i).setUser(user);
+        }
+        if (result.isEmpty())
+            return ResponseModel.getCommonFailedResponseModel("获取商品数据失败");
         return ResponseModel.getCommonSuccessResponseModel(result);
     }
 
     @At("/newGood")
     @POST
-    public ResponseModel newAddress(Goods good) {
-        if(good.getRental().isEmpty())
+    public ResponseModel newGood(Goods good) {
+        if (good.getRental().isEmpty())
             good.setType(1);
         else
             good.setType(2);
