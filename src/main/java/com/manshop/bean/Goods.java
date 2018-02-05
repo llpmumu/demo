@@ -21,12 +21,14 @@ public class Goods {
     @ColDefine(width = 1)
     private Integer type;
     @ColDefine(width = 1)
-    private String state;
-    @ColDefine(type = ColType.VARCHAR, width = 8)
+    private Integer state;
+    @ColDefine(type = ColType.INT)
     private String price;
     @ColDefine(type = ColType.VARCHAR, width = 8)
     private String rental;
 
+    public Goods() {
+    }
 
     public Integer getId() {
         return id;
@@ -84,11 +86,11 @@ public class Goods {
         this.type = type;
     }
 
-    public String getState() {
+    public Integer getState() {
         return state;
     }
 
-    public void setState(String state) {
+    public void setState(Integer state) {
         this.state = state;
     }
 

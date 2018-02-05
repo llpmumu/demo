@@ -31,6 +31,12 @@ public class GoodsModule {
     @At("/newGood")
     @POST
     public ResponseModel newAddress(Goods good) {
+        if(good.getRental().isEmpty())
+            good.setType(1);
+        else
+            good.setType(2);
+        good.setState(0);
+        good.setPicture("https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=1121475478,2545730346&fm=27&gp=0.jpg;https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=1116587413,1335069674&fm=27&gp=0.jpg");
         dao.insert(good);
         return ResponseModel.getCommonSuccessResponseModel("新建商品成功");
     }
