@@ -39,4 +39,11 @@ public class AddressModule {
         dao.insert(address);
         return ResponseModel.getCommonSuccessResponseModel("新建地址成功");
     }
+
+    @At("/delAddress")
+    @POST
+    public ResponseModel delAddress(Address address) {
+        dao.delete(Address.class,address.getId());
+        return ResponseModel.getCommonSuccessResponseModel("删除地址成功");
+    }
 }
