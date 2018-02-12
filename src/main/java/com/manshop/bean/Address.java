@@ -16,19 +16,16 @@ public class Address {
     private String addphone;
     @ColDefine(type = ColType.VARCHAR, width = 50)
     private String address;
-    @ColDefine(type = ColType.BOOLEAN)
-    private Boolean isDefault;
 
     public Address(){
     }
 
-    public Address(Integer id, Integer uid, String consignee, String addphone, String address, Boolean isDefault) {
+    public Address(Integer id, Integer uid, String consignee, String addphone, String address) {
         this.id = id;
         this.uid = uid;
         this.consignee = consignee;
         this.addphone = addphone;
         this.address = address;
-        this.isDefault = isDefault;
     }
 
     public Integer getId() {
@@ -77,13 +74,5 @@ public class Address {
 
     public void setAddphone(String addphone) {
         this.addphone = addphone;
-    }
-
-    public Boolean getDefault() {
-        return isDefault;
-    }
-
-    public void setDefault(Boolean aDefault) {
-        isDefault = aDefault;
     }
 }
