@@ -46,4 +46,12 @@ public class AddressModule {
         dao.delete(Address.class,address.getId());
         return ResponseModel.getCommonSuccessResponseModel("删除地址成功");
     }
+
+    @At("/updateAddress")
+    @POST
+    public ResponseModel updateAddress(Address address) {
+        System.out.println(address.getId());
+        dao.update(address,Cnd.where("id","=",address.getId()));
+        return ResponseModel.getCommonSuccessResponseModel("修改地址成功");
+    }
 }

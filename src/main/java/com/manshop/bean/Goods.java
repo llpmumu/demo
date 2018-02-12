@@ -16,7 +16,7 @@ public class Goods {
     private String title;
     @ColDefine(type = ColType.VARCHAR, width = 200)
     private String detail;
-    @ColDefine(type = ColType.VARCHAR, width = 200)
+    @ColDefine(type = ColType.VARCHAR, width = 1000)
     private String picture;
     @ColDefine(width = 1)
     private Integer type;
