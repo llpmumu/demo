@@ -43,6 +43,17 @@ public class GoodsModule {
         return ResponseModel.getCommonSuccessResponseModel(result);
     }
 
+    @At("/getOneGood")
+    @POST
+    public ResponseModel getOneGood(Goods good) {
+        Goods result = dao.fetch(Goods.class, Cnd.where("id", "=", good.getId()));
+        User user = dao.fetch(User.class, result.getUid());
+        result.setUser(user);
+        if (result == null)
+            return ResponseModel.getCommonFailedResponseModel("获取商品失败");
+        return ResponseModel.getCommonSuccessResponseModel(result);
+    }
+
     @At("/newGood")
     @POST
     public ResponseModel newGood(Goods good) {
@@ -54,5 +65,13 @@ public class GoodsModule {
         good.setPicture("https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=1121475478,2545730346&fm=27&gp=0.jpg;https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=1116587413,1335069674&fm=27&gp=0.jpg");
         dao.insert(good);
         return ResponseModel.getCommonSuccessResponseModel("新建商品成功");
+    }
+
+    @At("/updateGood")
+    @POST
+    public ResponseModel updateGood(Goods good) {
+        System.out.println(good.getId());
+        dao.update(good,Cnd.where("id","=",good.getId()));
+        return ResponseModel.getCommonSuccessResponseModel("修改商品成功");
     }
 }

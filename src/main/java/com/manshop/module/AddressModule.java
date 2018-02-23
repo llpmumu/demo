@@ -28,7 +28,16 @@ public class AddressModule {
     public ResponseModel getAddress(Address address) {
         List<Address> result = dao.query(Address.class, Cnd.where("uid", "=", address.getUid()));
         System.out.println(result.size());
-        if(result.isEmpty())
+        if (result.isEmpty())
+            return ResponseModel.getCommonFailedResponseModel("无收件地址");
+        return ResponseModel.getCommonSuccessResponseModel(result);
+    }
+
+    @At("/getOneAddress")
+    @POST
+    public ResponseModel getOneAddress(Address address) {
+        Address result = dao.fetch(Address.class, Cnd.where("uid", "=", address.getUid()));
+        if (result == null)
             return ResponseModel.getCommonFailedResponseModel("无收件地址");
         return ResponseModel.getCommonSuccessResponseModel(result);
     }
@@ -43,7 +52,7 @@ public class AddressModule {
     @At("/delAddress")
     @POST
     public ResponseModel delAddress(Address address) {
-        dao.delete(Address.class,address.getId());
+        dao.delete(Address.class, address.getId());
         return ResponseModel.getCommonSuccessResponseModel("删除地址成功");
     }
 
@@ -51,7 +60,7 @@ public class AddressModule {
     @POST
     public ResponseModel updateAddress(Address address) {
         System.out.println(address.getId());
-        dao.update(address,Cnd.where("id","=",address.getId()));
+        dao.update(address, Cnd.where("id", "=", address.getId()));
         return ResponseModel.getCommonSuccessResponseModel("修改地址成功");
     }
 }
