@@ -2,7 +2,9 @@ package com.manshop.bean;
 
 import org.nutz.dao.entity.annotation.*;
 
+import java.sql.Date;
 import java.sql.Time;
+import java.sql.Timestamp;
 
 @Table("t_order")
 public class Order {
@@ -31,8 +33,8 @@ public class Order {
     private String leavetime;
     @ColDefine(type = ColType.VARCHAR, width = 1)
     private Integer type;
-    @ColDefine(type = ColType.TIME)
-    private Time ordertime;
+    @ColDefine(type = ColType.TIMESTAMP)
+    private Timestamp ordertime;
 
     public Order() {
     }
@@ -152,11 +154,11 @@ public class Order {
         this.type = type;
     }
 
-    public Time getOrdertime() {
+    public Timestamp getOrdertime() {
         return ordertime;
     }
 
-    public void setOrdertime(Time ordertime) {
+    public void setOrdertime(Timestamp ordertime) {
         this.ordertime = ordertime;
     }
 }
