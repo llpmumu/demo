@@ -3,6 +3,7 @@ package com.manshop.module;
 import com.manshop.bean.Goods;
 import com.manshop.bean.User;
 import com.manshop.model.ResponseModel;
+import com.manshop.util.SortUtil;
 import org.nutz.dao.Cnd;
 import org.nutz.dao.Dao;
 import org.nutz.ioc.loader.annotation.Inject;
@@ -19,11 +20,13 @@ import java.util.List;
 public class GoodsModule {
     @Inject
     private Dao dao;
+    SortUtil sortUtil = new SortUtil();
 
     @At("/getMyGood")
     @POST
     public ResponseModel getMyGood(Goods goods) {
         List<Goods> result = dao.query(Goods.class, Cnd.where("uid", "=", goods.getUid()));
+        sortUtil.gTimeSort(result);
         if (result.isEmpty())
             return ResponseModel.getCommonFailedResponseModel("无发布的商品");
         return ResponseModel.getCommonSuccessResponseModel(result);
@@ -71,7 +74,7 @@ public class GoodsModule {
     @POST
     public ResponseModel updateGood(Goods good) {
         System.out.println(good.getId());
-        dao.update(good,Cnd.where("id","=",good.getId()));
+        dao.update(good, Cnd.where("id", "=", good.getId()));
         return ResponseModel.getCommonSuccessResponseModel("修改商品成功");
     }
 }

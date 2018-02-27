@@ -4,6 +4,7 @@ import com.manshop.bean.Goods;
 import com.manshop.bean.Order;
 import com.manshop.bean.User;
 import com.manshop.model.ResponseModel;
+import com.manshop.util.SortUtil;
 import org.nutz.dao.Cnd;
 import org.nutz.dao.Dao;
 import org.nutz.el.opt.custom.CustomMake;
@@ -17,6 +18,7 @@ import org.nutz.mvc.annotation.Ok;
 import org.nutz.mvc.annotation.POST;
 
 import java.text.SimpleDateFormat;
+import java.util.Collections;
 import java.util.List;
 
 @IocBean  // 配置这个类能被ioc容器发现
@@ -24,6 +26,7 @@ import java.util.List;
 @Ok("json")  // 配置这个模块的默认返回格式是json
 @AdaptBy(type = JsonAdaptor.class) // 以json流的方式入参
 public class OrderModule {
+    SortUtil sortUtil = new SortUtil();
     @Inject
     private Dao dao;
 
@@ -59,7 +62,7 @@ public class OrderModule {
     @At("/getMyOrder")
     @POST
     public ResponseModel getMyOrder(Order order) {
-        List<Order> result = dao.query(Order.class, Cnd.where("id", "=", order.getBuid()));
+        List<Order> result = dao.query(Order.class, Cnd.where("buid", "=", order.getBuid()));
         for (int i = 0; i < result.size(); i++) {
             //买家
             User bUser = dao.fetch(User.class, result.get(i).getBuid());
@@ -72,6 +75,8 @@ public class OrderModule {
             Goods good = dao.fetch(Goods.class,result.get(i).getGid());
             result.get(i).setGood(good);
         }
+//        Collections.sort(result, sortUtil);
+        sortUtil.oTimeSort(result);
         if (result.isEmpty())
             return ResponseModel.getCommonFailedResponseModel("获取订单数据失败");
         return ResponseModel.getCommonSuccessResponseModel(result);

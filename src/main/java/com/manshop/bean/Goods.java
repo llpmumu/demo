@@ -2,6 +2,7 @@ package com.manshop.bean;
 
 import org.nutz.dao.entity.annotation.*;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 @Table("t_goods")
@@ -26,6 +27,8 @@ public class Goods {
     private String price;
     @ColDefine(type = ColType.VARCHAR, width = 8)
     private String rental;
+    @ColDefine(type = ColType.TIMESTAMP)
+    private Timestamp goodtime;
 
     public Goods() {
     }
@@ -108,5 +111,13 @@ public class Goods {
 
     public void setRental(String rental) {
         this.rental = rental;
+    }
+
+    public Timestamp getGoodtime() {
+        return goodtime;
+    }
+
+    public void setGoodtime(Timestamp goodtime) {
+        this.goodtime = goodtime;
     }
 }
