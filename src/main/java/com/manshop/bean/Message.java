@@ -1,7 +1,9 @@
 package com.manshop.bean;
+
 import org.nutz.dao.entity.annotation.*;
 import org.nutz.dao.entity.annotation.Table;
 
+import java.sql.Timestamp;
 
 @Table("t_msg")
 public class Message {
@@ -17,9 +19,11 @@ public class Message {
     private Integer receiver;
     @One(field = "receiver", key = "id")
     private User ruser;
-    @ColDefine(notNull = true,type = ColType.INT, width = 1)
+    @ColDefine(notNull = true, type = ColType.INT, width = 1)
     @Default(value = "0")
     private Integer type;
+    @ColDefine(type = ColType.TIMESTAMP)
+    private Timestamp msgtime;
 
     public Message() {
     }
@@ -78,5 +82,26 @@ public class Message {
 
     public void setType(Integer type) {
         this.type = type;
+    }
+
+    public Timestamp getMsgtime() {
+        return msgtime;
+    }
+
+    public void setMsgtime(Timestamp msgtime) {
+        this.msgtime = msgtime;
+    }
+
+    @Override
+    public String toString() {
+        return "Message{" +
+                "id=" + id +
+                ", msg='" + msg + '\'' +
+                ", sender=" + sender +
+                ", suser=" + suser +
+                ", receiver=" + receiver +
+                ", ruser=" + ruser +
+                ", type=" + type +
+                '}';
     }
 }

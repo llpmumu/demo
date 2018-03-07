@@ -1,6 +1,7 @@
 package com.manshop.util;
 
 import com.manshop.bean.Goods;
+import com.manshop.bean.Message;
 import com.manshop.bean.Order;
 
 import java.sql.Timestamp;
@@ -39,4 +40,17 @@ public class SortUtil {
         });
     }
 
+    //    商品按时间排序
+    public static void mTimeSort(List<Message> list) {
+        Collections.sort(list, new Comparator<Message>() {
+            @Override
+            public int compare(Message o1, Message o2) {
+                Message message1 = (Message) o1;
+                Message message2 = (Message) o2;
+
+                int flag = message1.getMsgtime().compareTo(message2.getMsgtime());
+                return flag;
+            }
+        });
+    }
 }
