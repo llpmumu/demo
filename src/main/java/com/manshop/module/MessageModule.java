@@ -33,41 +33,42 @@ public class MessageModule {
         return ResponseModel.getCommonSuccessResponseModel(message.getId());
     }
 
-    @At("/getSendMsg")
+    @At("/getMsg")
     @POST
-    public ResponseModel getSendMsg(Message message) {
-        List<Message> result = dao.query(Message.class, Cnd.where("sender", "=", message.getSender()).and("receiver","=",message.getReceiver()));
-        for (int i = 0; i < result.size(); i++) {
-            //接受方
-            User rUser = dao.fetch(User.class, result.get(i).getReceiver());
-            result.get(i).setRuser(rUser);
-
-            //发送方
-            User sUser = dao.fetch(User.class, result.get(i).getSender());
-            result.get(i).setSuser(sUser);
-        }
+    public ResponseModel getMsg(Message message) {
+        List<Message> result = dao.query(Message.class, Cnd.where("sender", "=", message.getSender()).and("receiver","=",message.getReceiver())
+        .or("sender","=",message.getReceiver()).and("receiver","=", message.getSender()));
+//        for (int i = 0; i < result.size(); i++) {
+//            //接受方
+//            User rUser = dao.fetch(User.class, result.get(i).getReceiver());
+//            result.get(i).setRuser(rUser);
+//
+//            //发送方
+//            User sUser = dao.fetch(User.class, result.get(i).getSender());
+//            result.get(i).setSuser(sUser);
+//        }
         sortUtil.mTimeSort(result);
         if (result.isEmpty())
             return ResponseModel.getCommonFailedResponseModel("获取聊天记录失败失败");
         return ResponseModel.getCommonSuccessResponseModel(result);
     }
 
-    @At("/getReMsg")
-    @POST
-    public ResponseModel getReMsg(Message message) {
-        List<Message> result = dao.query(Message.class, Cnd.where("sender", "=", message.getSender()).and("receiver","=",message.getReceiver()));
-        for (int i = 0; i < result.size(); i++) {
-            //接受方
-            User rUser = dao.fetch(User.class, result.get(i).getReceiver());
-            result.get(i).setRuser(rUser);
-
-            //发送方
-            User sUser = dao.fetch(User.class, result.get(i).getSender());
-            result.get(i).setSuser(sUser);
-        }
-        sortUtil.mTimeSort(result);
-        if (result.isEmpty())
-            return ResponseModel.getCommonFailedResponseModel("获取聊天记录失败失败");
-        return ResponseModel.getCommonSuccessResponseModel(result);
-    }
+//    @At("/getReMsg")
+//    @POST
+//    public ResponseModel getReMsg(Message message) {
+//        List<Message> result = dao.query(Message.class, Cnd.where("sender", "=", message.getSender()).and("receiver","=",message.getReceiver()));
+//        for (int i = 0; i < result.size(); i++) {
+//            //接受方
+//            User rUser = dao.fetch(User.class, result.get(i).getReceiver());
+//            result.get(i).setRuser(rUser);
+//
+//            //发送方
+//            User sUser = dao.fetch(User.class, result.get(i).getSender());
+//            result.get(i).setSuser(sUser);
+//        }
+//        sortUtil.mTimeSort(result);
+//        if (result.isEmpty())
+//            return ResponseModel.getCommonFailedResponseModel("获取聊天记录失败失败");
+//        return ResponseModel.getCommonSuccessResponseModel(result);
+//    }
 }
