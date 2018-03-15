@@ -19,6 +19,7 @@ public class Show {
     @ColDefine(type = ColType.VARCHAR, width = 20)
     private String showdata;
 
+
     public Show() {
     }
 
@@ -62,11 +63,20 @@ public class Show {
         this.picture = picture;
     }
 
+    public String getProvince() {
+        return province;
+    }
+
+    public void setProvince(String province) {
+        this.province = province;
+    }
+
     @Override
     public String toString() {
         return "Show{" +
                 "id=" + id +
                 ", title='" + title + '\'' +
+                ", province='" + province + '\'' +
                 ", address='" + address + '\'' +
                 ", picture='" + picture + '\'' +
                 ", showdata='" + showdata + '\'' +
