@@ -12,7 +12,7 @@ import org.nutz.mvc.annotation.*;
 import java.util.List;
 
 @IocBean  // 配置这个类能被ioc容器发现
-@At("/order")  // 配置这个模块的根路径
+@At("/show")  // 配置这个模块的根路径
 @Ok("json")  // 配置这个模块的默认返回格式是json
 @AdaptBy(type = JsonAdaptor.class) // 以json流的方式入参
 public class ShowModule {
@@ -28,7 +28,7 @@ public class ShowModule {
         return ResponseModel.getCommonSuccessResponseModel(result);
     }
 
-    @At("getAddressShow")
+    @At("/getAddressShow")
     @POST
     public ResponseModel getAddressShow(Show show){
         List result = dao.query(Show.class, Cnd.where("province","=",show.getProvince()));
