@@ -1,5 +1,6 @@
 package com.manshop.module;
 
+import com.manshop.bean.Address;
 import com.manshop.bean.Anime;
 import com.manshop.model.ResponseModel;
 import org.nutz.dao.Cnd;
@@ -42,3 +43,4 @@ public class AnimeModule {
         return ResponseModel.getCommonSuccessResponseModel(result);
     }
 }
+

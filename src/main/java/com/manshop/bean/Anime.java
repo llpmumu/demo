@@ -2,12 +2,11 @@ package com.manshop.bean;
 
 import org.nutz.dao.entity.annotation.*;
 
-
 @Table("t_anime")
 public class Anime {
     @Id
     private Integer id;
-    @ColDefine(notNull = true, type = ColType.VARCHAR, width = 30)
+    @ColDefine(notNull=true,type = ColType.VARCHAR, width = 30)
     private String title;
     @ColDefine(type = ColType.VARCHAR, width = 512)
     private String detail;
@@ -90,7 +89,6 @@ public class Anime {
     public void setProducer(String producer) {
         this.producer = producer;
     }
-
     public String getPictrue() {
         return pictrue;
     }
@@ -100,3 +98,4 @@ public class Anime {
     }
 
 }
+
