@@ -14,16 +14,24 @@ public class Anime {
     private String year;
     @ColDefine(type = ColType.VARCHAR, width = 5)
     private String episodes;
+    @ColDefine(type = ColType.VARCHAR, width = 50)
+    private String produce;
+    @ColDefine(type = ColType.VARCHAR, width = 50)
+    private String producer;
+    @ColDefine(type = ColType.VARCHAR, width = 512)
+    private String pictrue;
 
     public Anime() {
     }
 
-    public Anime(Integer id, String title, String detail, String year, String episodes) {
+    public Anime(Integer id, String title, String detail, String year, String episodes, String produce, String producer) {
         this.id = id;
         this.title = title;
         this.detail = detail;
         this.year = year;
         this.episodes = episodes;
+        this.produce = produce;
+        this.producer = producer;
     }
 
     public Integer getId() {
@@ -65,5 +73,29 @@ public class Anime {
     public void setEpisodes(String episodes) {
         this.episodes = episodes;
     }
+
+    public String getProduce() {
+        return produce;
+    }
+
+    public void setProduce(String produce) {
+        this.produce = produce;
+    }
+
+    public String getProducer() {
+        return producer;
+    }
+
+    public void setProducer(String producer) {
+        this.producer = producer;
+    }
+    public String getPictrue() {
+        return pictrue;
+    }
+
+    public void setPictrue(String pictrue) {
+        this.pictrue = pictrue;
+    }
+
 }
 
