@@ -2,11 +2,13 @@ package com.manshop.bean;
 
 import org.nutz.dao.entity.annotation.*;
 
+import java.util.List;
+
 @Table("t_anime")
 public class Anime {
     @Id
     private Integer id;
-    @ColDefine(notNull=true,type = ColType.VARCHAR, width = 30)
+    @ColDefine(notNull = true, type = ColType.VARCHAR, width = 30)
     private String title;
     @ColDefine(type = ColType.VARCHAR, width = 512)
     private String detail;
@@ -20,11 +22,15 @@ public class Anime {
     private String producer;
     @ColDefine(type = ColType.VARCHAR, width = 512)
     private String pictrue;
+    @ColDefine(type = ColType.VARCHAR, width = 100)
+    private String JapanName;
+    private List<Akira> akiraList;
+    private List<Role> roleList;
 
     public Anime() {
     }
 
-    public Anime(Integer id, String title, String detail, String year, String episodes, String produce, String producer) {
+    public Anime(Integer id, String title, String detail, String year, String episodes, String produce, String producer, String pictrue, String japanName) {
         this.id = id;
         this.title = title;
         this.detail = detail;
@@ -32,6 +38,8 @@ public class Anime {
         this.episodes = episodes;
         this.produce = produce;
         this.producer = producer;
+        this.pictrue = pictrue;
+        JapanName = japanName;
     }
 
     public Integer getId() {
@@ -89,6 +97,7 @@ public class Anime {
     public void setProducer(String producer) {
         this.producer = producer;
     }
+
     public String getPictrue() {
         return pictrue;
     }
@@ -97,5 +106,28 @@ public class Anime {
         this.pictrue = pictrue;
     }
 
+    public String getJapanName() {
+        return JapanName;
+    }
+
+    public void setJapanName(String japanName) {
+        JapanName = japanName;
+    }
+
+    public List<Akira> getAkiraList() {
+        return akiraList;
+    }
+
+    public void setAkiraList(List<Akira> akiraList) {
+        this.akiraList = akiraList;
+    }
+
+    public List<Role> getRoleList() {
+        return roleList;
+    }
+
+    public void setRoleList(List<Role> roleList) {
+        this.roleList = roleList;
+    }
 }
 
