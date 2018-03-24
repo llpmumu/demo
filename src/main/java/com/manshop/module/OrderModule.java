@@ -5,6 +5,7 @@ import com.manshop.bean.Order;
 import com.manshop.bean.User;
 import com.manshop.model.ResponseModel;
 import com.manshop.util.SortUtil;
+import org.nutz.dao.Chain;
 import org.nutz.dao.Cnd;
 import org.nutz.dao.Dao;
 import org.nutz.ioc.loader.annotation.Inject;
@@ -31,6 +32,9 @@ public class OrderModule {
     public ResponseModel newOrder(Order order) {
         order.setDelivery(0);
         dao.insert(order);
+        Goods goods = dao.fetch(Goods.class,order.getGid());
+        goods.setState(1);
+        dao.update(goods);
         return ResponseModel.getCommonSuccessResponseModel(order.getId());
     }
 

@@ -40,6 +40,10 @@ public class GoodsModule {
         for (int i = 0; i < result.size(); i++) {
             User user = dao.fetch(User.class, result.get(i).getUid());
             result.get(i).setUser(user);
+            if (result.get(i).getState() == 1) {
+                result.remove(i);
+                i--;
+            }
         }
         if (result.isEmpty())
             return ResponseModel.getCommonFailedResponseModel("获取商品数据失败");
