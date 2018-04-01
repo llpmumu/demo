@@ -81,4 +81,27 @@ public class OrderModule {
             return ResponseModel.getCommonFailedResponseModel("获取订单数据失败");
         return ResponseModel.getCommonSuccessResponseModel(result);
     }
+
+    @At("/getSellOrder")
+    @POST
+    public ResponseModel getSellOrder(Order order) {
+        List<Order> result = dao.query(Order.class, Cnd.where("suid", "=", order.getSuid()));
+        for (int i = 0; i < result.size(); i++) {
+            //买家
+            User bUser = dao.fetch(User.class, result.get(i).getBuid());
+            result.get(i).setBuser(bUser);
+
+            //卖家
+            User sUser = dao.fetch(User.class, result.get(i).getSuid());
+            result.get(i).setBuser(sUser);
+
+            Goods good = dao.fetch(Goods.class,result.get(i).getGid());
+            result.get(i).setGood(good);
+        }
+//        Collections.sort(result, sortUtil);
+        sortUtil.oTimeSort(result);
+        if (result.isEmpty())
+            return ResponseModel.getCommonFailedResponseModel("获取订单数据失败");
+        return ResponseModel.getCommonSuccessResponseModel(result);
+    }
 }

@@ -9,7 +9,7 @@ import java.sql.Timestamp;
 @Table("t_order")
 public class Order {
     @Name
-    @Prev(els=@EL("uuid(32)"))
+    @Prev(els = @EL("uuid(32)"))
     private String id;
     @ColDefine(notNull = true)
     private Integer gid;
@@ -23,6 +23,10 @@ public class Order {
     private Integer buid;
     @One(field = "buid", key = "id")
     private User buser;
+    @ColDefine(notNull = true)
+    private Integer aid;
+    @One(field = "aid", key = "id")
+    private Address address;
     @ColDefine(width = 1)
     private Integer delivery;
     @ColDefine(type = ColType.VARCHAR, width = 25)
@@ -39,24 +43,6 @@ public class Order {
     public Order() {
     }
 
-    @Override
-    public String toString() {
-        return "Order{" +
-                "id='" + id + '\'' +
-                ", gid=" + gid +
-                ", good=" + good +
-                ", suid=" + suid +
-                ", suser=" + suser +
-                ", buid=" + buid +
-                ", buser=" + buser +
-                ", delivery=" + delivery +
-                ", trackingnum='" + trackingnum + '\'' +
-                ", state=" + state +
-                ", leavetime='" + leavetime + '\'' +
-                ", type=" + type +
-                ", ordertime=" + ordertime +
-                '}';
-    }
 
     public String getId() {
         return id;
@@ -160,5 +146,43 @@ public class Order {
 
     public void setOrdertime(Timestamp ordertime) {
         this.ordertime = ordertime;
+    }
+
+    public Address getAddress() {
+        return address;
+    }
+
+    public void setAddress(Address address) {
+        this.address = address;
+    }
+
+    public Integer getAid() {
+
+        return aid;
+    }
+
+    public void setAid(Integer aid) {
+        this.aid = aid;
+    }
+
+    @Override
+    public String toString() {
+        return "Order{" +
+                "id='" + id + '\'' +
+                ", gid=" + gid +
+                ", good=" + good +
+                ", suid=" + suid +
+                ", suser=" + suser +
+                ", buid=" + buid +
+                ", buser=" + buser +
+                ", aid=" + aid +
+                ", address=" + address +
+                ", delivery=" + delivery +
+                ", trackingnum='" + trackingnum + '\'' +
+                ", state=" + state +
+                ", leavetime='" + leavetime + '\'' +
+                ", type=" + type +
+                ", ordertime=" + ordertime +
+                '}';
     }
 }
