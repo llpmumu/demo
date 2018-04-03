@@ -6,6 +6,8 @@ import com.manshop.model.ResponseModel;
 import com.manshop.util.SortUtil;
 import org.nutz.dao.Cnd;
 import org.nutz.dao.Dao;
+import org.nutz.dao.Sqls;
+import org.nutz.dao.sql.Sql;
 import org.nutz.ioc.loader.annotation.Inject;
 import org.nutz.ioc.loader.annotation.IocBean;
 import org.nutz.mvc.adaptor.JsonAdaptor;
@@ -55,7 +57,13 @@ public class MessageModule {
     @At("/getMsgList")
     @POST
     public ResponseModel getMsgList(Message message) {
-        List<Message> result = dao.query(Message.class, Cnd.where("sender", "=", message.getSender()).and("receiver","=",message.getReceiver()));
+        int id = message.getSender();
+        Sql sql = Sqls.create("SELECT * FROM t_msg WHERE sender = "+id +" or receiver = "+id +" AND sender NOT IN (SELECT receiver FROM t_msg WHERE sender = "+id +") GROUP BY receiver");
+        sql.setCallback(Sqls.callback.entities());
+        sql.setEntity(dao.getEntity(Message.class));
+        dao.execute(sql);
+        List<Message> result = sql.getList(Message.class);
+//        List<Message> result = dao.query(Message.class,  Cnd.wrap("SELECT *,COUNT(DISTINCT receiver) FROM t_msg WHERE sender = "+id +" or receiver = "+id +" AND sender NOT IN (SELECT receiver FROM t_msg WHERE sender = "+id +") GROUP BY receiver"));
         for (int i = 0; i < result.size(); i++) {
             //接受方
             User rUser = dao.fetch(User.class, result.get(i).getReceiver());
