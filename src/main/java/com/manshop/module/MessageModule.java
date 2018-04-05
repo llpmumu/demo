@@ -37,18 +37,23 @@ public class MessageModule {
     @At("/getMsg")
     @POST
     public ResponseModel getMsg(Message message) {
-        List<Message> result = dao.query(Message.class, Cnd.where("sender", "=", message.getSender()).and("receiver","=",message.getReceiver())
-        .or("sender","=",message.getReceiver()).and("receiver","=", message.getSender()));
+        List<Message> result = dao.query(Message.class, Cnd.where("sender", "=", message.getSender()).and("receiver", "=", message.getReceiver())
+                .or("sender", "=", message.getReceiver()).and("receiver", "=", message.getSender()).asc("msgtime"));
 //        for (int i = 0; i < result.size(); i++) {
-//            //接受方
-//            User rUser = dao.fetch(User.class, result.get(i).getReceiver());
-//            result.get(i).setRuser(rUser);
-//
-//            //发送方
-//            User sUser = dao.fetch(User.class, result.get(i).getSender());
-//            result.get(i).setSuser(sUser);
+        //接受方
+        User rUser = dao.fetch(User.class, result.get(0).getReceiver());
+        result.get(0).setRuser(rUser);
+
+        //发送方
+        User sUser = dao.fetch(User.class, result.get(0).getSender());
+        result.get(0).setSuser(sUser);
 //        }
-        sortUtil.mTimeSort(result);
+        for (Message message1 : result) {
+            if (message1.getReceiver().equals(message.getSender()))
+                message1.setType(1);
+        }
+        dao.update(result);
+//        sortUtil.mTimeSort(result);
         if (result.isEmpty())
             return ResponseModel.getCommonFailedResponseModel("获取聊天记录失败失败");
         return ResponseModel.getCommonSuccessResponseModel(result);
@@ -58,12 +63,11 @@ public class MessageModule {
     @POST
     public ResponseModel getMsgList(Message message) {
         int id = message.getSender();
-        Sql sql = Sqls.create("SELECT * FROM t_msg WHERE sender = "+id +" or receiver = "+id +" AND sender NOT IN (SELECT receiver FROM t_msg WHERE sender = "+id +") GROUP BY receiver");
+        Sql sql = Sqls.create("SELECT * FROM t_msg WHERE sender = " + id + " or receiver = " + id + " AND sender NOT IN (SELECT receiver FROM t_msg WHERE sender = " + id + " ) GROUP BY receiver");
         sql.setCallback(Sqls.callback.entities());
         sql.setEntity(dao.getEntity(Message.class));
         dao.execute(sql);
         List<Message> result = sql.getList(Message.class);
-//        List<Message> result = dao.query(Message.class,  Cnd.wrap("SELECT *,COUNT(DISTINCT receiver) FROM t_msg WHERE sender = "+id +" or receiver = "+id +" AND sender NOT IN (SELECT receiver FROM t_msg WHERE sender = "+id +") GROUP BY receiver"));
         for (int i = 0; i < result.size(); i++) {
             //接受方
             User rUser = dao.fetch(User.class, result.get(i).getReceiver());
@@ -73,7 +77,7 @@ public class MessageModule {
             User sUser = dao.fetch(User.class, result.get(i).getSender());
             result.get(i).setSuser(sUser);
         }
-        sortUtil.mTimeSort(result);
+//        sortUtil.mTimeSort(result);
         if (result.isEmpty())
             return ResponseModel.getCommonFailedResponseModel("获取聊天记录失败失败");
         return ResponseModel.getCommonSuccessResponseModel(result);

@@ -47,7 +47,6 @@ public class UserModule {
         if(Strings.isBlank(user.getPhone()) || Strings.isBlank(user.getPassword())){
             return ResponseModel.getCommonFailedResponseModel("手机号或密码不能为空");
         }
-        user.setUsername(user.getPhone());
         user.setHead("https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=256814278,2196155154&fm=27&gp=0.jpg");
         dao.insert(user);
         System.out.println(user.getId());
