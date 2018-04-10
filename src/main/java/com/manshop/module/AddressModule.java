@@ -23,6 +23,13 @@ public class AddressModule {
     @Inject
     private Dao dao;
 
+    @At("/newAddress")
+    @POST
+    public ResponseModel newAddress(Address address) {
+        dao.insert(address);
+        return ResponseModel.getCommonSuccessResponseModel("新建地址成功");
+    }
+
     @At("/getAddress")
     @POST
     public ResponseModel getAddress(Address address) {
@@ -33,21 +40,14 @@ public class AddressModule {
         return ResponseModel.getCommonSuccessResponseModel(result);
     }
 
-    @At("/getOneAddress")
-    @POST
-    public ResponseModel getOneAddress(Address address) {
-        Address result = dao.fetch(Address.class, Cnd.where("uid", "=", address.getUid()));
-        if (result == null)
-            return ResponseModel.getCommonFailedResponseModel("无收件地址");
-        return ResponseModel.getCommonSuccessResponseModel(result);
-    }
-
-    @At("/newAddress")
-    @POST
-    public ResponseModel newAddress(Address address) {
-        dao.insert(address);
-        return ResponseModel.getCommonSuccessResponseModel("新建地址成功");
-    }
+//    @At("/getOneAddress")
+//    @POST
+//    public ResponseModel getOneAddress(Address address) {
+//        Address result = dao.fetch(Address.class, Cnd.where("id", "=", address.getId()));
+//        if (result == null)
+//            return ResponseModel.getCommonFailedResponseModel("无收件地址");
+//        return ResponseModel.getCommonSuccessResponseModel(result);
+//    }
 
     @At("/delAddress")
     @POST
@@ -59,8 +59,22 @@ public class AddressModule {
     @At("/updateAddress")
     @POST
     public ResponseModel updateAddress(Address address) {
-        System.out.println(address.getId());
         dao.update(address, Cnd.where("id", "=", address.getId()));
         return ResponseModel.getCommonSuccessResponseModel("修改地址成功");
+    }
+
+    @At("/setDefaultAddress")
+    @POST
+    public ResponseModel setDefaultAddress(Address address) {
+        dao.update(address, Cnd.where("id", "=", address.getId()));
+        Address result = dao.fetch(Address.class, Cnd.where("id", "=", address.getId()));
+        return ResponseModel.getCommonSuccessResponseModel(result);
+    }
+
+    @At("/getDefaultAddress")
+    @POST
+    public ResponseModel getDefaultAddress(Address address) {
+        Address result = dao.fetch(Address.class, Cnd.where("uid", "=", address.getUid()).and("isDefault", "=", true));
+        return ResponseModel.getCommonSuccessResponseModel(result);
     }
 }

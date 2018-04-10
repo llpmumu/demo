@@ -1,5 +1,6 @@
 package com.manshop.module;
 
+import com.manshop.bean.Address;
 import com.manshop.bean.Goods;
 import com.manshop.bean.Order;
 import com.manshop.bean.User;
@@ -32,7 +33,7 @@ public class OrderModule {
     public ResponseModel newOrder(Order order) {
         order.setDelivery(0);
         dao.insert(order);
-        Goods goods = dao.fetch(Goods.class,order.getGid());
+        Goods goods = dao.fetch(Goods.class, order.getGid());
         goods.setState(1);
         dao.update(goods);
         return ResponseModel.getCommonSuccessResponseModel(order.getId());
@@ -51,9 +52,11 @@ public class OrderModule {
         User sUser = dao.fetch(User.class, result.getSuid());
         result.setSuser(sUser);
 
-        Goods good = dao.fetch(Goods.class,result.getGid());
+        Goods good = dao.fetch(Goods.class, result.getGid());
         result.setGood(good);
 
+        Address address = dao.fetch(Address.class, result.getAid());
+        result.setAddress(address);
         if (result == null)
             return ResponseModel.getCommonFailedResponseModel("获取订单失败");
         return ResponseModel.getCommonSuccessResponseModel(result);
@@ -72,7 +75,7 @@ public class OrderModule {
             User sUser = dao.fetch(User.class, result.get(i).getSuid());
             result.get(i).setBuser(sUser);
 
-            Goods good = dao.fetch(Goods.class,result.get(i).getGid());
+            Goods good = dao.fetch(Goods.class, result.get(i).getGid());
             result.get(i).setGood(good);
         }
 //        Collections.sort(result, sortUtil);
@@ -95,13 +98,25 @@ public class OrderModule {
             User sUser = dao.fetch(User.class, result.get(i).getSuid());
             result.get(i).setBuser(sUser);
 
-            Goods good = dao.fetch(Goods.class,result.get(i).getGid());
+            Goods good = dao.fetch(Goods.class, result.get(i).getGid());
             result.get(i).setGood(good);
         }
 //        Collections.sort(result, sortUtil);
         sortUtil.oTimeSort(result);
         if (result.isEmpty())
             return ResponseModel.getCommonFailedResponseModel("获取订单数据失败");
+        return ResponseModel.getCommonSuccessResponseModel(result);
+    }
+
+    @At("/updataOrder")
+    @POST
+    public ResponseModel updataOrder(Order order) {
+        dao.update(Order.class, Chain.make("delivery", order.getDelivery()), Cnd.where("id", "=", order.getId()));
+        dao.update(Order.class, Chain.make("trackingnum", order.getTrackingnum()), Cnd.where("id", "=", order.getId()));
+        dao.update(Order.class, Chain.make("state", order.getState()), Cnd.where("id", "=", order.getId()));
+        Order result = dao.fetch(Order.class, Cnd.where("id", "=", order.getId()));
+        Goods good = dao.fetch(Goods.class, result.getGid());
+        result.setGood(good);
         return ResponseModel.getCommonSuccessResponseModel(result);
     }
 }

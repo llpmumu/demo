@@ -6,7 +6,7 @@ import org.nutz.dao.entity.annotation.*;
 public class Address {
     @Id
     private Integer id;
-    @ColDefine(notNull=true)
+    @ColDefine(notNull = true)
     private Integer uid;
     @One(field = "uid", key = "id")
     private User user;
@@ -16,16 +16,11 @@ public class Address {
     private String addphone;
     @ColDefine(type = ColType.VARCHAR, width = 50)
     private String address;
+    @ColDefine(type = ColType.BOOLEAN)
+    @Default(value = "false")
+    private boolean isDefault;
 
-    public Address(){
-    }
-
-    public Address(Integer id, Integer uid, String consignee, String addphone, String address) {
-        this.id = id;
-        this.uid = uid;
-        this.consignee = consignee;
-        this.addphone = addphone;
-        this.address = address;
+    public Address() {
     }
 
     public Integer getId() {
@@ -74,5 +69,13 @@ public class Address {
 
     public void setAddphone(String addphone) {
         this.addphone = addphone;
+    }
+
+    public boolean isDefault() {
+        return isDefault;
+    }
+
+    public void setDefault(boolean aDefault) {
+        isDefault = aDefault;
     }
 }
