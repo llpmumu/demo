@@ -3,46 +3,24 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>io.nutz</groupId>
 	<artifactId>demo</artifactId>
-	<version>2.0-SNAPSHOT</version>
+	<version>1.0-SNAPSHOT</version>
 	<packaging>jar</packaging>
 	<properties>
-		<slf4j.version>1.7.25</slf4j.version>
-		<nutzboot.version>2.0-SNAPSHOT</nutzboot.version>
-		<junit.version>4.12</junit.version>
-		<log4j.version>1.2.17</log4j.version>
+		<nutzboot.version>2.2-SNAPSHOT</nutzboot.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>org.nutz</groupId>
+				<artifactId>nutzboot-parent</artifactId>
+				<version>${nutzboot.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
 	<dependencies>
-		<dependency>
-			<groupId>org.nutz</groupId>
-			<artifactId>nutzboot-starter</artifactId>
-			<version>${nutzboot.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.nutz</groupId>
-			<artifactId>nutzboot-starter-jetty</artifactId>
-			<version>${nutzboot.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.nutz</groupId>
-			<artifactId>nutzboot-starter-nutz-mvc</artifactId>
-			<version>${nutzboot.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.nutz</groupId>
-			<artifactId>nutzboot-starter-nutz-dao</artifactId>
-			<version>${nutzboot.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.nutz</groupId>
-			<artifactId>nutzboot-starter-jdbc</artifactId>
-			<version>${nutzboot.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>com.alibaba</groupId>
-			<artifactId>druid</artifactId>
-			<version>1.1.5</version>
-		</dependency>
 		<!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
 		<dependency>
 			<groupId>mysql</groupId>
@@ -50,30 +28,36 @@
 			<version>5.1.38</version>
 		</dependency>
 		<dependency>
-			<!-- jsoup HTML parser library @ https://jsoup.org/ -->
-			<groupId>org.jsoup</groupId>
-			<artifactId>jsoup</artifactId>
-			<version>1.11.2</version>
+			<groupId>org.nutz</groupId>
+			<artifactId>nutzboot-starter-swagger</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>org.apache.httpcomponents</groupId>
-			<artifactId>httpclient</artifactId>
-			<version>4.1.2</version>
+			<groupId>org.nutz</groupId>
+			<artifactId>nutzboot-starter-jetty</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>org.apache.httpcomponents</groupId>
-			<artifactId>httpclient-cache</artifactId>
-			<version>4.1.2</version>
+			<groupId>org.nutz</groupId>
+			<artifactId>nutzboot-starter-nutz-mvc</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>org.apache.httpcomponents.client5</groupId>
-			<artifactId>httpclient5</artifactId>
-			<version>5.0-beta1</version>
+			<groupId>org.nutz</groupId>
+			<artifactId>nutzboot-starter-nutz-dao</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>org.apache.httpcomponents.client5</groupId>
-			<artifactId>httpclient5-cache</artifactId>
-			<version>5.0-beta1</version>
+			<groupId>org.nutz</groupId>
+			<artifactId>nutzboot-starter-jdbc</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.alibaba</groupId>
+			<artifactId>druid</artifactId>
+		</dependency>
+
+
+
+
+		<dependency>
+			<groupId>org.nutz</groupId>
+			<artifactId>nutzboot-starter-undertow</artifactId>
 		</dependency>
 
 
@@ -97,7 +81,6 @@
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-log4j12</artifactId>
-			<version>${slf4j.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>com.h2database</groupId>
@@ -107,23 +90,17 @@
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
-			<version>${junit.version}</version>
 			<scope>test</scope>
 		</dependency>
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>RELEASE</version>
-        </dependency>
-    </dependencies>
+	</dependencies>
 	<repositories>
 		<repository>
 			<id>nutz</id>
-			<url>https://jfrog.nutz.cn/artifactory/jcenter</url>
+			<url>http://jfrog.nutz.cn/artifactory/libs-release</url>
 		</repository>
 		<repository>
 			<id>nutz-snapshots</id>
-			<url>https://jfrog.nutz.cn/artifactory/snapshots</url>
+			<url>http://jfrog.nutz.cn/artifactory/snapshots</url>
 			<snapshots>
 				<enabled>true</enabled>
 				<updatePolicy>always</updatePolicy>

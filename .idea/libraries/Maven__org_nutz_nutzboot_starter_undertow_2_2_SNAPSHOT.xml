@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: org.nutz:nutzboot-starter-undertow:2.2-SNAPSHOT">
+    <CLASSES>
+      <root url="jar://E:/JetBrains/repository/org/nutz/nutzboot-starter-undertow/2.2-SNAPSHOT/nutzboot-starter-undertow-2.2-20180412.031240-138.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://E:/JetBrains/repository/org/nutz/nutzboot-starter-undertow/2.2-SNAPSHOT/nutzboot-starter-undertow-2.2-20180412.031240-138-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://E:/JetBrains/repository/org/nutz/nutzboot-starter-undertow/2.2-SNAPSHOT/nutzboot-starter-undertow-2.2-20180412.031240-138-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

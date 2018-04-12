@@ -31,7 +31,12 @@ public class MainLauncher {
     public void depose() {
     }
 
+//    public static void main(String[] args) throws Exception {
+//        new NbApp(MainLauncher.class).run();
+//    }
+
     public static void main(String[] args) throws Exception {
-        new NbApp(MainLauncher.class).run();
+        new NbApp().setArgs(args).setPrintProcDoc(true).run();
     }
+
 }
