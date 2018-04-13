@@ -3,6 +3,7 @@ package com.manshop.module;
 import com.manshop.bean.Goods;
 import com.manshop.bean.User;
 import com.manshop.model.ResponseModel;
+import com.manshop.util.Base64Util;
 import com.manshop.util.SortUtil;
 import org.nutz.dao.Cnd;
 import org.nutz.dao.Dao;
@@ -64,11 +65,12 @@ public class GoodsModule {
     @At("/newGood")
     @POST
     public ResponseModel newGood(Goods good) {
-        if (good.getRental().isEmpty())
-            good.setType(1);
-        else
-            good.setType(2);
+//        if (good.getRental().isEmpty())
+//            good.setType(1);
+//        else
+//            good.setType(2);
         good.setState(0);
+        good.setPicture(Base64Util.changeToImage(good.getPicture()));
         dao.insert(good);
         return ResponseModel.getCommonSuccessResponseModel("新建商品成功");
     }
