@@ -13,6 +13,10 @@ public class Goods {
     private Integer uid;
     @One(field = "uid", key = "id")
     private User user;
+    @ColDefine()
+    private Integer sid;
+    @One(field = "sid", key = "id")
+    private SmallSort smallSort;
     @ColDefine(type = ColType.VARCHAR, width = 20)
     private String title;
     @ColDefine(type = ColType.VARCHAR, width = 200)
@@ -20,15 +24,11 @@ public class Goods {
     @ColDefine(type = ColType.VARCHAR, width = 1000)
     private String picture;
     @ColDefine(width = 1)
-    private Integer type;
-    @ColDefine(width = 1)
     private Integer state;
     @ColDefine(type = ColType.INT)
     private String price;
-    @ColDefine(type = ColType.VARCHAR, width = 8)
-    private String rental;
     @ColDefine(type = ColType.TIMESTAMP)
-    private Timestamp goodtime;
+    private Timestamp releasedate;
 
     public Goods() {
     }
@@ -57,6 +57,22 @@ public class Goods {
         this.user = user;
     }
 
+    public Integer getSid() {
+        return sid;
+    }
+
+    public void setSid(Integer sid) {
+        this.sid = sid;
+    }
+
+    public SmallSort getSmallSort() {
+        return smallSort;
+    }
+
+    public void setSmallSort(SmallSort smallSort) {
+        this.smallSort = smallSort;
+    }
+
     public String getTitle() {
         return title;
     }
@@ -81,14 +97,6 @@ public class Goods {
         this.picture = picture;
     }
 
-    public Integer getType() {
-        return type;
-    }
-
-    public void setType(Integer type) {
-        this.type = type;
-    }
-
     public Integer getState() {
         return state;
     }
@@ -105,19 +113,11 @@ public class Goods {
         this.price = price;
     }
 
-    public String getRental() {
-        return rental;
-    }
-
-    public void setRental(String rental) {
-        this.rental = rental;
-    }
-
     public Timestamp getGoodtime() {
-        return goodtime;
+        return releasedate;
     }
 
-    public void setGoodtime(Timestamp goodtime) {
-        this.goodtime = goodtime;
+    public void setGoodtime(Timestamp releasedate) {
+        this.releasedate = releasedate;
     }
 }

@@ -34,11 +34,11 @@ public class UserModule {
         if(Strings.isBlank(user.getPhone()) || Strings.isBlank(user.getPassword())){
             return ResponseModel.getCommonFailedResponseModel("手机号或密码不能为空");
         }
-        List<User> result = dao.query(User.class, Cnd.where("phone", "=", user.getPhone()).and("password","=",user.getPassword()));
-        System.out.println(result.get(0).getId());
-        if(result.isEmpty())
-            return ResponseModel.getCommonFailedResponseModel("用户不存在");
-        return ResponseModel.getCommonSuccessResponseModel(result.get(0));
+        User result = dao.fetch(User.class, Cnd.where("phone", "=", user.getPhone()).and("password","=",user.getPassword()));
+//        System.out.println(result.get(0).getId());
+//        if(result.isEmpty())
+//            return ResponseModel.getCommonFailedResponseModel("用户不存在");
+        return ResponseModel.getCommonSuccessResponseModel(result);
     }
 
     @At("/register")

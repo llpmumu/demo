@@ -5,12 +5,15 @@ import org.nutz.dao.entity.annotation.ColType;
 import org.nutz.dao.entity.annotation.Id;
 import org.nutz.dao.entity.annotation.Table;
 
+import java.util.List;
+
 @Table("t_sort")
 public class Sort {
     @Id
     private Integer id;
     @ColDefine(type = ColType.VARCHAR, width = 50)
     private String sortName;
+    private List<SmallSort> smallSortList;
 
     public Sort() {
     }
@@ -34,5 +37,13 @@ public class Sort {
 
     public void setSortName(String sortName) {
         this.sortName = sortName;
+    }
+
+    public List<SmallSort> getSmallSortList() {
+        return smallSortList;
+    }
+
+    public void setSmallSortList(List<SmallSort> smallSortList) {
+        this.smallSortList = smallSortList;
     }
 }

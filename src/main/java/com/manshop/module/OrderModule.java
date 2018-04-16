@@ -108,7 +108,7 @@ public class OrderModule {
         return ResponseModel.getCommonSuccessResponseModel(result);
     }
 
-    @At("/updataOrder")
+    @At("/updateOrder")
     @POST
     public ResponseModel updataOrder(Order order) {
         dao.update(Order.class, Chain.make("delivery", order.getDelivery()), Cnd.where("id", "=", order.getId()));
