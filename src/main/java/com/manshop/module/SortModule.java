@@ -64,4 +64,13 @@ public class SortModule {
         }
         return ResponseModel.getCommonSuccessResponseModel(result);
     }
+
+    @At("/getSmallSort")
+    @GET
+    public ResponseModel getSmallSort() {
+        List<SmallSort> smallSorts = dao.query(SmallSort.class, Cnd.where("id","!=",1));
+        if (smallSorts.isEmpty())
+            return ResponseModel.getCommonFailedResponseModel("");
+        return ResponseModel.getCommonSuccessResponseModel(smallSorts);
+    }
 }
