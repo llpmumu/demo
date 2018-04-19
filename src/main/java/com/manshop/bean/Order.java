@@ -2,8 +2,6 @@ package com.manshop.bean;
 
 import org.nutz.dao.entity.annotation.*;
 
-import java.sql.Date;
-import java.sql.Time;
 import java.sql.Timestamp;
 
 @Table("t_order")
@@ -33,10 +31,6 @@ public class Order {
     private String trackingnum;
     @ColDefine(type = ColType.INT, width = 1)
     private Integer state;
-    @ColDefine(type = ColType.VARCHAR, width = 10)
-    private String leavetime;
-    @ColDefine(type = ColType.VARCHAR, width = 1)
-    private Integer type;
     @ColDefine(type = ColType.TIMESTAMP)
     private Timestamp ordertime;
 
@@ -124,22 +118,6 @@ public class Order {
         this.state = state;
     }
 
-    public String getLeavetime() {
-        return leavetime;
-    }
-
-    public void setLeavetime(String leavetime) {
-        this.leavetime = leavetime;
-    }
-
-    public Integer getType() {
-        return type;
-    }
-
-    public void setType(Integer type) {
-        this.type = type;
-    }
-
     public Timestamp getOrdertime() {
         return ordertime;
     }
@@ -157,7 +135,6 @@ public class Order {
     }
 
     public Integer getAid() {
-
         return aid;
     }
 
@@ -165,24 +142,4 @@ public class Order {
         this.aid = aid;
     }
 
-    @Override
-    public String toString() {
-        return "Order{" +
-                "id='" + id + '\'' +
-                ", gid=" + gid +
-                ", good=" + good +
-                ", suid=" + suid +
-                ", suser=" + suser +
-                ", buid=" + buid +
-                ", buser=" + buser +
-                ", aid=" + aid +
-                ", address=" + address +
-                ", delivery=" + delivery +
-                ", trackingnum='" + trackingnum + '\'' +
-                ", state=" + state +
-                ", leavetime='" + leavetime + '\'' +
-                ", type=" + type +
-                ", ordertime=" + ordertime +
-                '}';
-    }
 }

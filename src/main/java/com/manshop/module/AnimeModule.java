@@ -1,6 +1,5 @@
 package com.manshop.module;
 
-import com.manshop.bean.Address;
 import com.manshop.bean.Akira;
 import com.manshop.bean.Anime;
 import com.manshop.bean.Role;
@@ -10,10 +9,7 @@ import org.nutz.dao.Dao;
 import org.nutz.ioc.loader.annotation.Inject;
 import org.nutz.ioc.loader.annotation.IocBean;
 import org.nutz.mvc.adaptor.JsonAdaptor;
-import org.nutz.mvc.annotation.AdaptBy;
-import org.nutz.mvc.annotation.At;
-import org.nutz.mvc.annotation.Ok;
-import org.nutz.mvc.annotation.POST;
+import org.nutz.mvc.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,6 +44,15 @@ public class AnimeModule {
     public ResponseModel getYearAnime(Anime anime) {
         List<Anime> result = dao.query(Anime.class, Cnd.where("title", "=", anime.getYear()));
         System.out.println(result.size());
+        if (result.isEmpty())
+            return ResponseModel.getCommonFailedResponseModel("");
+        return ResponseModel.getCommonSuccessResponseModel(result);
+    }
+
+    @At("/getAnime")
+    @GET
+    public ResponseModel getAnime() {
+        List<Anime> result = dao.query(Anime.class, null);
         if (result.isEmpty())
             return ResponseModel.getCommonFailedResponseModel("");
         return ResponseModel.getCommonSuccessResponseModel(result);

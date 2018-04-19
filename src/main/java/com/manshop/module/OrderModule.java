@@ -65,7 +65,7 @@ public class OrderModule {
     @At("/getMyOrder")
     @POST
     public ResponseModel getMyOrder(Order order) {
-        List<Order> result = dao.query(Order.class, Cnd.where("buid", "=", order.getBuid()));
+        List<Order> result = dao.query(Order.class, Cnd.where("buid", "=", order.getBuid()).asc("ordertime"));
         for (int i = 0; i < result.size(); i++) {
             //买家
             User bUser = dao.fetch(User.class, result.get(i).getBuid());
@@ -79,7 +79,7 @@ public class OrderModule {
             result.get(i).setGood(good);
         }
 //        Collections.sort(result, sortUtil);
-        sortUtil.oTimeSort(result);
+//        sortUtil.oTimeSort(result);
         if (result.isEmpty())
             return ResponseModel.getCommonFailedResponseModel("获取订单数据失败");
         return ResponseModel.getCommonSuccessResponseModel(result);

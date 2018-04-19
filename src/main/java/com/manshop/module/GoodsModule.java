@@ -10,7 +10,10 @@ import org.nutz.dao.Dao;
 import org.nutz.ioc.loader.annotation.Inject;
 import org.nutz.ioc.loader.annotation.IocBean;
 import org.nutz.mvc.adaptor.JsonAdaptor;
-import org.nutz.mvc.annotation.*;
+import org.nutz.mvc.annotation.AdaptBy;
+import org.nutz.mvc.annotation.At;
+import org.nutz.mvc.annotation.Ok;
+import org.nutz.mvc.annotation.POST;
 
 import java.util.List;
 
@@ -26,8 +29,8 @@ public class GoodsModule {
     @At("/getMyGood")
     @POST
     public ResponseModel getMyGood(Goods goods) {
-        List<Goods> result = dao.query(Goods.class, Cnd.where("uid", "=", goods.getUid()));
-        sortUtil.gTimeSort(result);
+        List<Goods> result = dao.query(Goods.class, Cnd.where("uid", "=", goods.getUid()).asc("releasedate"));
+//        sortUtil.gTimeSort(result);
         if (result.isEmpty())
             return ResponseModel.getCommonFailedResponseModel("无发布的商品");
         return ResponseModel.getCommonSuccessResponseModel(result);
