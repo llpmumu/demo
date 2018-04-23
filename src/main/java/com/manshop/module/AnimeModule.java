@@ -25,15 +25,17 @@ public class AnimeModule {
     @At("/getOneAnime")
     @POST
     public ResponseModel getOneAnime(Anime anime) {
+        System.out.println(anime.getTitle());
         Anime result = dao.fetch(Anime.class, Cnd.where("title", "=", anime.getTitle()));
         List<Role> roleList = dao.query(Role.class, Cnd.where("animeId", "=", result.getId()));
-        List<Akira> akiraList = new ArrayList<>();
+//        List<Akira> akiraList = new ArrayList<>();
         for (Role role : roleList) {
             Akira akira = dao.fetch(Akira.class, Cnd.where("id", "=", role.getAkiraId()));
-            akiraList.add(akira);
+            role.setAkiraName(akira.getName());
+//            akiraList.add(akira);
         }
         result.setRoleList(roleList);
-        result.setAkiraList(akiraList);
+//        result.setAkiraList(akiraList);
         if (result.equals(""))
             return ResponseModel.getCommonFailedResponseModel("");
         return ResponseModel.getCommonSuccessResponseModel(result);

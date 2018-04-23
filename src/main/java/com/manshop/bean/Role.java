@@ -16,17 +16,9 @@ public class Role {
     private Integer akiraId;
     @One(field = "akiraId", key = "id")
     private Role role;
+    private String akiraName;
 
     public Role(){
-    }
-
-    public Role(Integer id, String name, Integer animeId, Anime anime, Integer akiraId, Role role) {
-        this.id = id;
-        this.name = name;
-        this.animeId = animeId;
-        this.anime = anime;
-        this.akiraId = akiraId;
-        this.role = role;
     }
 
     public Integer getId() {
@@ -75,5 +67,13 @@ public class Role {
 
     public void setRole(Role role) {
         this.role = role;
+    }
+
+    public String getAkiraName() {
+        return akiraName;
+    }
+
+    public void setAkiraName(String akiraName) {
+        this.akiraName = akiraName;
     }
 }

@@ -24,7 +24,6 @@ public class Anime {
     private String pictrue;
     @ColDefine(type = ColType.VARCHAR, width = 100)
     private String JapanName;
-    private List<Akira> akiraList;
     private List<Role> roleList;
 
     public Anime() {
@@ -112,14 +111,6 @@ public class Anime {
 
     public void setJapanName(String japanName) {
         JapanName = japanName;
-    }
-
-    public List<Akira> getAkiraList() {
-        return akiraList;
-    }
-
-    public void setAkiraList(List<Akira> akiraList) {
-        this.akiraList = akiraList;
     }
 
     public List<Role> getRoleList() {
