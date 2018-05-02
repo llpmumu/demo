@@ -1,6 +1,7 @@
 package com.manshop.module;
 
 import com.manshop.bean.Goods;
+import com.manshop.bean.SmallSort;
 import com.manshop.bean.User;
 import com.manshop.model.ResponseModel;
 import com.manshop.util.Base64Util;
@@ -10,10 +11,7 @@ import org.nutz.dao.Dao;
 import org.nutz.ioc.loader.annotation.Inject;
 import org.nutz.ioc.loader.annotation.IocBean;
 import org.nutz.mvc.adaptor.JsonAdaptor;
-import org.nutz.mvc.annotation.AdaptBy;
-import org.nutz.mvc.annotation.At;
-import org.nutz.mvc.annotation.Ok;
-import org.nutz.mvc.annotation.POST;
+import org.nutz.mvc.annotation.*;
 
 import java.util.List;
 
@@ -84,5 +82,30 @@ public class GoodsModule {
         System.out.println(good.getId());
         dao.update(good, Cnd.where("id", "=", good.getId()));
         return ResponseModel.getCommonSuccessResponseModel("修改商品成功");
+    }
+
+    @At("/deleteGood")
+    @POST
+    public ResponseModel deleteGood(Goods good) {
+        System.out.println(good.getId());
+        dao.delete(Goods.class,good.getId());
+        return ResponseModel.getCommonSuccessResponseModel("删除商品成功");
+    }
+
+    @At("/searchGoods")
+    @POST
+    public ResponseModel searchGoods(Goods good) {
+        System.out.println(good.getTitle());
+        List<Goods> result = dao.query(Goods.class, Cnd.where("title", "like", "%"+good.getTitle()+"%"));
+        for (int i = 0; i < result.size(); i++) {
+            User user = dao.fetch(User.class, result.get(i).getUid());
+            result.get(i).setUser(user);
+            result.get(i).setSmallSort(dao.fetch(SmallSort.class, Cnd.where("id", "=", result.get(i).getSid())));
+            if (result.get(i).getState() == 1) {
+                result.remove(i);
+                i--;
+            }
+        }
+        return ResponseModel.getCommonSuccessResponseModel(result);
     }
 }
