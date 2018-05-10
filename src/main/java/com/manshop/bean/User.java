@@ -14,6 +14,8 @@ public class User {
     private String password;
     @ColDefine(type = ColType.VARCHAR, width = 200)
     private String head;
+    @ColDefine(type = ColType.VARCHAR, width = 100)
+    private String tag;
 
     public Integer getId() {
         return id;
@@ -23,10 +25,10 @@ public class User {
         this.id = id;
     }
 
+
     public String getPhone() {
         return phone;
     }
-
     public void setPhone(String phone) {
         this.phone = phone;
     }
@@ -53,5 +55,13 @@ public class User {
 
     public void setHead(String head) {
         this.head = head;
+    }
+
+    public String getTag() {
+        return tag;
+    }
+
+    public void setTag(String tag) {
+        this.tag = tag;
     }
 }
