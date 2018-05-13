@@ -37,7 +37,7 @@ public class GoodsModule {
     @At("/getGood")
     @POST
     public ResponseModel getGood(Goods goods) {
-        List<Goods> result = dao.query(Goods.class, Cnd.where("uid", "!=", goods.getUid()));
+        List<Goods> result = dao.query(Goods.class, Cnd.wrap("uid !=" + goods.getUid() + " ORDER BY  RAND() LIMIT 10"));
         System.out.println(result.size());
         for (int i = 0; i < result.size(); i++) {
             User user = dao.fetch(User.class, result.get(i).getUid());
@@ -88,7 +88,7 @@ public class GoodsModule {
     @POST
     public ResponseModel deleteGood(Goods good) {
         System.out.println(good.getId());
-        dao.delete(Goods.class,good.getId());
+        dao.delete(Goods.class, good.getId());
         return ResponseModel.getCommonSuccessResponseModel("删除商品成功");
     }
 
@@ -96,7 +96,7 @@ public class GoodsModule {
     @POST
     public ResponseModel searchGoods(Goods good) {
         System.out.println(good.getTitle());
-        List<Goods> result = dao.query(Goods.class, Cnd.where("title", "like", "%"+good.getTitle()+"%"));
+        List<Goods> result = dao.query(Goods.class, Cnd.where("title", "like", "%" + good.getTitle() + "%"));
         for (int i = 0; i < result.size(); i++) {
             User user = dao.fetch(User.class, result.get(i).getUid());
             result.get(i).setUser(user);
