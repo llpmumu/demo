@@ -47,9 +47,15 @@ public class UserModule {
         if(Strings.isBlank(user.getUsername())||Strings.isBlank(user.getPhone()) || Strings.isBlank(user.getPassword())){
             return ResponseModel.getCommonFailedResponseModel("手机号或密码不能为空");
         }
-        user.setHead("https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=256814278,2196155154&fm=27&gp=0.jpg");
         dao.insert(user);
         System.out.println(user.getId());
         return ResponseModel.getCommonSuccessResponseModel("注册成功");
+    }
+
+    @At("/updateInfo")
+    @POST
+    public ResponseModel updateInfo(User user) {
+        dao.update(User.class, Chain.make("username", user.getUsername()), Cnd.where("phone", "=", user.getPhone()));
+        return ResponseModel.getCommonSuccessResponseModel("更改成功");
     }
 }
