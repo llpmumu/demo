@@ -115,6 +115,17 @@ public class GoodsModule {
     @At("/get")
     public ResponseModel get(Goods goods) {
         List<Goods> result = dao.query(Goods.class,null);
+        for (int i = 0; i < result.size(); i++) {
+            SmallSort smallSort = dao.fetch(SmallSort.class,Cnd.where("id","=",result.get(i).getSid()));
+            result.get(i).setSortName(smallSort.getSortName());
+        }
         return ResponseModel.getCommonSuccessResponseModel(result);
+    }
+
+    @At("/del")
+    public ResponseModel del(@Param("id") int id) {
+        System.out.println(id);
+        dao.delete(User.class,id);
+        return ResponseModel.getCommonSuccessResponseModel("删除成功");
     }
 }

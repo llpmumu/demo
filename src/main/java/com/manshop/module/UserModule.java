@@ -69,6 +69,7 @@ public class UserModule {
 
     @At("/delUser")
     public ResponseModel delUser(@Param("id") int id){
+        System.out.println(id);
         dao.delete(User.class,id);
         return ResponseModel.getCommonSuccessResponseModel("删除成功");
     }
@@ -76,7 +77,7 @@ public class UserModule {
     @At("/get")
     public ResponseModel getOneUser(@Param("id") int id){
         System.out.println(id);
-        User user = dao.fetch(User.class,Cnd.where("id","=",id));
+        List<User> user = dao.query(User.class,Cnd.where("id","=",id));
         return ResponseModel.getCommonSuccessResponseModel(user);
     }
 }

@@ -30,6 +30,8 @@ public class Goods {
     @ColDefine(type = ColType.TIMESTAMP)
     private Timestamp releasedate;
 
+    private String sortName;
+
     public Goods() {
     }
 
@@ -119,5 +121,13 @@ public class Goods {
 
     public void setGoodtime(Timestamp releasedate) {
         this.releasedate = releasedate;
+    }
+
+    public String getSortName() {
+        return sortName;
+    }
+
+    public void setSortName(String sortName) {
+        this.sortName = sortName;
     }
 }
