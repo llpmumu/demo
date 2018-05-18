@@ -11,6 +11,7 @@ import org.nutz.ioc.loader.annotation.Inject;
 import org.nutz.ioc.loader.annotation.IocBean;
 import org.nutz.mvc.adaptor.JsonAdaptor;
 import org.nutz.mvc.annotation.*;
+import org.nutz.mvc.filter.CrossOriginFilter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,6 +20,7 @@ import java.util.List;
 @At("/sort")  // 配置这个模块的根路径
 @Ok("json")  // 配置这个模块的默认返回格式是json
 @AdaptBy(type = JsonAdaptor.class) // 以json流的方式入参
+@Filters(@By(type = CrossOriginFilter.class))
 public class SortModule {
 
     @Inject

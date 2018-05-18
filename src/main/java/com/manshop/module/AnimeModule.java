@@ -10,6 +10,7 @@ import org.nutz.ioc.loader.annotation.Inject;
 import org.nutz.ioc.loader.annotation.IocBean;
 import org.nutz.mvc.adaptor.JsonAdaptor;
 import org.nutz.mvc.annotation.*;
+import org.nutz.mvc.filter.CrossOriginFilter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,6 +19,7 @@ import java.util.List;
 @At("/anime")  // 配置这个模块的根路径
 @Ok("json")  // 配置这个模块的默认返回格式是json
 @AdaptBy(type = JsonAdaptor.class) // 以json流的方式入参
+@Filters(@By(type = CrossOriginFilter.class))
 public class AnimeModule {
     @Inject
     private Dao dao;
@@ -58,6 +60,19 @@ public class AnimeModule {
         if (result.isEmpty())
             return ResponseModel.getCommonFailedResponseModel("");
         return ResponseModel.getCommonSuccessResponseModel(result);
+    }
+
+    @At("/add")
+    @AdaptBy(type = JsonAdaptor.class)
+    public ResponseModel addShow(Anime anime) {
+        dao.insert(anime);
+        return ResponseModel.getCommonSuccessResponseModel("上传成功");
+    }
+
+    @At("/delShow")
+    public ResponseModel delShow(@Param("id") int id) {
+        dao.delete(Anime.class, id);
+        return ResponseModel.getCommonSuccessResponseModel("删除成功");
     }
 }
 

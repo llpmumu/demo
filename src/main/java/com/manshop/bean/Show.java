@@ -3,9 +3,6 @@ package com.manshop.bean;
 import org.nutz.dao.entity.annotation.*;
 import org.nutz.dao.entity.annotation.Table;
 
-import java.sql.Date;
-import java.sql.Timestamp;
-
 
 @Table("t_show")
 public class Show {
@@ -22,7 +19,7 @@ public class Show {
     @ColDefine(type = ColType.VARCHAR, width = 20)
     private String showdate;
     @ColDefine(type = ColType.DATE)
-    private Date showtime;
+    private java.util.Date showtime;
 
 
     public Show() {
@@ -76,11 +73,11 @@ public class Show {
         this.province = province;
     }
 
-    public Date getShowtime() {
+    public java.util.Date getShowtime() {
         return showtime;
     }
 
-    public void setShowtime(Date showtime) {
+    public void setShowtime(java.util.Date showtime) {
         this.showtime = showtime;
     }
 }

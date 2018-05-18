@@ -11,10 +11,8 @@ import org.nutz.lang.Strings;
 import org.nutz.log.Log;
 import org.nutz.log.Logs;
 import org.nutz.mvc.adaptor.JsonAdaptor;
-import org.nutz.mvc.annotation.AdaptBy;
-import org.nutz.mvc.annotation.At;
-import org.nutz.mvc.annotation.Ok;
-import org.nutz.mvc.annotation.POST;
+import org.nutz.mvc.annotation.*;
+import org.nutz.mvc.filter.CrossOriginFilter;
 
 import java.util.List;
 
@@ -22,6 +20,7 @@ import java.util.List;
 @At("/user")  // 配置这个模块的根路径
 @Ok("json")  // 配置这个模块的默认返回格式是json
 @AdaptBy(type = JsonAdaptor.class) // 以json流的方式入参
+@Filters(@By(type=CrossOriginFilter.class))
 public class UserModule {
     @Inject
     private Dao dao;
@@ -57,5 +56,27 @@ public class UserModule {
     public ResponseModel updateInfo(User user) {
         dao.update(User.class, Chain.make("username", user.getUsername()), Cnd.where("phone", "=", user.getPhone()));
         return ResponseModel.getCommonSuccessResponseModel("更改成功");
+    }
+
+
+
+    //后台使用接口
+    @At("/getUser")
+    public ResponseModel getUser(){
+        List<User> result = dao.query(User.class,null);
+        return ResponseModel.getCommonSuccessResponseModel(result);
+    }
+
+    @At("/delUser")
+    public ResponseModel delUser(@Param("id") int id){
+        dao.delete(User.class,id);
+        return ResponseModel.getCommonSuccessResponseModel("删除成功");
+    }
+
+    @At("/get")
+    public ResponseModel getOneUser(@Param("id") int id){
+        System.out.println(id);
+        User user = dao.fetch(User.class,Cnd.where("id","=",id));
+        return ResponseModel.getCommonSuccessResponseModel(user);
     }
 }
